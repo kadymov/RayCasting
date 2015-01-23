@@ -23,11 +23,14 @@ var map = new Map(20, 20).load([
 
 var
   res = new Res('map.png', 64, run),
-  debugScr = new DebugScr(200, 200, map);
+  player = new Player(64 * 9, 64 * 11, -Math.PI / 2),
+  debugScr = new DebugScr(200, 200, map, player, 64),
+  render = new Render(map, player, 64, debugScr);
 
 
 function run() {
   debugScr.draw();
+  //render.cast(player.x(), player.y(), player.dir());
 
   setTimeout(run, 50);
 }

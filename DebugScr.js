@@ -1,4 +1,4 @@
-function DebugScr(width, height, map, player) {
+function DebugScr(width, height, map, player, cellSize) {
   var
     scr = new Scr(width + 1, height + 1),
     cellWidth = Math.floor(width / map.width()),
@@ -27,7 +27,15 @@ function DebugScr(width, height, map, player) {
   }
 
   function drawPlayer() {
-    //TODO
+    var
+      x = Math.floor(player.x() / cellSize * cellWidth),
+      y = Math.floor(player.y() / cellSize * cellHeight),
+      dir = player.dir(),
+      nx = x + Math.cos(dir)*1000,
+      ny = y + Math.sin(dir)*1000;
+
+    scr.line(x, y, nx, ny, '#0f0');
+    scr.rect(x - 2, y - 2, 4, 4, '#0f0');
   }
 
   return {
@@ -41,6 +49,10 @@ function DebugScr(width, height, map, player) {
       drawGrid();
       drawMap();
       drawPlayer();
+    },
+
+    dot : function (x, y, col) {
+      scr.rect(x - 1, y - 1, 3, 3, col || 'red');
     }
   };
 }
