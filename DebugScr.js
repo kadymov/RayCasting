@@ -52,6 +52,8 @@ function DebugScr(width, height, map, player, cellSize) {
     },
 
     dot : function (x, y, col) {
+      x = Math.floor(x / cellSize * cellWidth);
+      y = Math.floor(y / cellSize * cellHeight),
       scr.rect(x - 1, y - 1, 3, 3, col || 'red');
     }
   };

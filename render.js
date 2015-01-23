@@ -1,5 +1,9 @@
 function Render(map, player, wallSize, debugScr) {
 
+  var
+    mapWidth = map.width()-1,
+    mapHeight = map.height()-1;
+
   wallSize = wallSize || 64;
 
   function getCell(x, y) {
@@ -12,11 +16,12 @@ function Render(map, player, wallSize, debugScr) {
 
   function normalize(rad) {
     var TWO_PI = Math.PI * 2;
-    return rad - TWO_PI * Math.floor((rad + Math.PI) / TWO_PI)
+    return rad - TWO_PI * Math.floor((rad + Math.PI) / TWO_PI);
   }
   
   function getIntersection(playerX, playerY, playerDir) {
-    var ax, ay, aStepX, aStepY,
+    var
+      ax, ay, aStepX, aStepY,
       bx, by, bStepX, bStepY,
       cellX, cellY,
       hLen = Infinity, vLen = Infinity;
@@ -36,7 +41,7 @@ function Render(map, player, wallSize, debugScr) {
 
       ax = playerX - (playerY - ay) / Math.tan(playerDir);
 
-      if (getCell(map, ax, (ay+tmp))) {
+      if (getCell(ax, ay+tmp)) {
         hLen = Math.sqrt( Math.pow(playerX - ax, 2) + Math.pow(playerY - ay, 2) );
       } else {
         while (true) {
@@ -46,11 +51,11 @@ function Render(map, player, wallSize, debugScr) {
           cellX = parseInt(ax / wallSize);
           cellY = parseInt((ay+tmp) / wallSize);
 
-          if (cellX < 0 || cellX > 9 || cellY < 0 || cellY > 9) {
+          if (cellX < 0 || cellX > mapWidth || cellY < 0 || cellY > mapHeight) {
             break;
           }
 
-          if (getCell(map, ax, (ay+tmp))) {
+          if (getCell(ax, ay+tmp)) {
             hLen = Math.sqrt( Math.pow(playerX - ax, 2) + Math.pow(playerY - ay, 2) );
             break;
           }
@@ -74,7 +79,7 @@ function Render(map, player, wallSize, debugScr) {
 
       by = playerY - (playerX - bx) * Math.tan(playerDir);
 
-      if (getCell(map, (bx+tmp), by)) {
+      if (getCell(bx+tmp, by)) {
         vLen = Math.sqrt( Math.pow(playerX - bx, 2) + Math.pow(playerY - by, 2) );
       } else {
         while (true) {
@@ -84,11 +89,11 @@ function Render(map, player, wallSize, debugScr) {
           cellX = parseInt((bx+tmp) / wallSize);
           cellY = parseInt(by / wallSize);
 
-          if (cellX < 0 || cellX > 10 || cellY < 0 || cellY > 10) {
+          if (cellX < 0 || cellX > mapWidth || cellY < 0 || cellY > mapHeight) {
             break;
           }
 
-          if (getCell(map, (bx+tmp), by)) {
+          if (getCell(bx+tmp, by)) {
             vLen = Math.sqrt( Math.pow(playerX - bx, 2) + Math.pow(playerY - by, 2) );
             break;
           }
@@ -104,8 +109,6 @@ function Render(map, player, wallSize, debugScr) {
       }
     }
 
-
-
     return {
       len : hLen > vLen ? vLen : hLen,
       //textureId : map.get(parseInt(x / wallSize), parseInt(y / wallSize)),
@@ -115,8 +118,12 @@ function Render(map, player, wallSize, debugScr) {
 
 
   return {
-    cast : function (playerX, playerY, playerDir) {
-      var dir = playerDir - 0.52,
+    cast : function () {
+      var
+        playerX = player.x(),
+        playerY = player.y(),
+        playerDir = player.dir(),
+        dir = playerDir - 0.52,
         step = 1.04 / 320,
         len, result = [];
 
