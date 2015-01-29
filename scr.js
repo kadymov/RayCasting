@@ -62,6 +62,10 @@ function Scr(width, height) {
       ctx.restore();
     },
 
+    image : function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
+      ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+    },
+
     appendTo : function (container) {
       container.appendChild(canvas);
     }

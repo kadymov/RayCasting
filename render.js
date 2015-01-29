@@ -110,9 +110,9 @@ function Render(map, player, wallSize, debugScr) {
     }
 
     return {
-      len : hLen > vLen ? vLen : hLen,
+      distance : hLen > vLen ? vLen : hLen,
       //textureId : map.get(parseInt(x / wallSize), parseInt(y / wallSize)),
-      textureCol : hLen > vLen ? Math.floor(by % wallSize * 3.2) : Math.floor(ax % wallSize * 3.2)
+      textureCol : hLen > vLen ? Math.floor(by % wallSize) : Math.floor(ax % wallSize)
     };
   }
 
@@ -130,7 +130,7 @@ function Render(map, player, wallSize, debugScr) {
       for (var i = 0; i < 320; i++) {
         len = getIntersection(playerX, playerY, normalize(dir));
 
-        len.len = len.len * Math.cos(playerDir - dir);
+        len.distance *= Math.cos(playerDir - dir);
 
         result.push(len);
         dir += step;
