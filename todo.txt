@@ -1,4 +1,4 @@
-* Опредиление текстуры и ее установка
+﻿* Опредиление текстуры и ее установка
 * Запрет прохода через препятствия
 * Спрайты
 ---
@@ -10,3 +10,35 @@
 ---
 * Эффект оборачивания
 * Эффекты (покраснение при попадании)
+---
+
+JavaFX WebView
+
+package sample;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
+
+public class Main extends Application {
+    @Override public void start(Stage stage) {
+        try {
+            WebView web = new WebView();
+            String path = System.getProperty("user.dir");
+            path.replace("\\\\", "/");
+            path +=  "/index.htm";
+            web.getEngine().load("file:///" + path);
+            Scene scene = new Scene(web, 400,400);
+            stage.setScene(scene);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args){
+        launch(args);
+    }
+}
