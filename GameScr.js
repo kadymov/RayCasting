@@ -18,7 +18,7 @@ function GameScr(width, height, textures, wallSize) {
       for (var i = 0, len = renderRes.length; i < len; i++) {
         col = renderRes[i];
         distance = col.distance;
-        textureId = 0;
+        textureId = col.textureId - 1;
         textureCol = col.textureCol;
         wallHeight = wallSize / distance * 180;
         texture = textures.get(textureId);

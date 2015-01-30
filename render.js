@@ -27,10 +27,10 @@ function Render(map, player, wallSize, debugScr) {
       hLen = Infinity, vLen = Infinity;
 
     if (playerDir !== 0 && playerDir !== Math.PI * 2) {
-      var tmp = 0;
+      var htmp = 0;
       if (playerDir < 0) { // ray is facing up
         ay = Math.floor(playerY / wallSize) * wallSize;
-        tmp = -1;
+        htmp = -1;
         aStepX = -wallSize / Math.tan(playerDir);
         aStepY = -wallSize;
       } else { //ray is facing down
@@ -41,7 +41,7 @@ function Render(map, player, wallSize, debugScr) {
 
       ax = playerX - (playerY - ay) / Math.tan(playerDir);
 
-      if (getCell(ax, ay+tmp)) {
+      if (getCell(ax, ay+htmp)) {
         hLen = Math.sqrt( Math.pow(playerX - ax, 2) + Math.pow(playerY - ay, 2) );
       } else {
         while (true) {
@@ -49,13 +49,13 @@ function Render(map, player, wallSize, debugScr) {
           ay = ay + aStepY;
 
           cellX = parseInt(ax / wallSize);
-          cellY = parseInt((ay+tmp) / wallSize);
+          cellY = parseInt((ay+htmp) / wallSize);
 
           if (cellX < 0 || cellX > mapWidth || cellY < 0 || cellY > mapHeight) {
             break;
           }
 
-          if (getCell(ax, ay+tmp)) {
+          if (getCell(ax, ay+htmp)) {
             hLen = Math.sqrt( Math.pow(playerX - ax, 2) + Math.pow(playerY - ay, 2) );
             break;
           }
@@ -65,35 +65,35 @@ function Render(map, player, wallSize, debugScr) {
 
 
     if (playerDir !== -Math.PI / 2 || playerDir !== Math.PI / 2) {
-      var tmp = 0;
+      var vtmp = 0;
       if (playerDir > -Math.PI / 2 && playerDir < Math.PI / 2) { // ray is facing right
         bx = Math.floor(playerX / wallSize) * wallSize + wallSize;
         bStepX = wallSize;
         bStepY = wallSize * Math.tan(playerDir);
       } else { // ray is facing left
         bx = Math.floor(playerX / wallSize) * wallSize;
-        tmp = -1;
+        vtmp = -1;
         bStepX = -wallSize;
         bStepY = -wallSize * Math.tan(playerDir);
       }
 
       by = playerY - (playerX - bx) * Math.tan(playerDir);
 
-      if (getCell(bx+tmp, by)) {
+      if (getCell(bx+vtmp, by)) {
         vLen = Math.sqrt( Math.pow(playerX - bx, 2) + Math.pow(playerY - by, 2) );
       } else {
         while (true) {
           bx = bx + bStepX;
           by = by + bStepY;
 
-          cellX = parseInt((bx+tmp) / wallSize);
+          cellX = parseInt((bx+vtmp) / wallSize);
           cellY = parseInt(by / wallSize);
 
           if (cellX < 0 || cellX > mapWidth || cellY < 0 || cellY > mapHeight) {
             break;
           }
 
-          if (getCell(bx+tmp, by)) {
+          if (getCell(bx+vtmp, by)) {
             vLen = Math.sqrt( Math.pow(playerX - bx, 2) + Math.pow(playerY - by, 2) );
             break;
           }
@@ -109,9 +109,13 @@ function Render(map, player, wallSize, debugScr) {
       }
     }
 
+    var
+      x = hLen > vLen ? bx+vtmp : ax,
+      y = hLen > vLen ? by : ay+htmp;
+
     return {
       distance : hLen > vLen ? vLen : hLen,
-      //textureId : map.get(parseInt(x / wallSize), parseInt(y / wallSize)),
+      textureId : map.get(parseInt((x) / wallSize), parseInt((y) / wallSize)),
       textureCol : hLen > vLen ? Math.floor(by % wallSize) : Math.floor(ax % wallSize)
     };
   }
