@@ -23,6 +23,8 @@ function GameScr(width, height, textures, wallSize) {
         wallHeight = wallSize / distance * 180;
         texture = textures.get(textureId);
 
+        if (!texture) continue;
+
         scr.image(texture, textureCol, 0, 1, 64, i, 120 - wallHeight / 2, 1, wallHeight);
 
         shadow = 0.3 + distance / 200;
