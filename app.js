@@ -84,30 +84,47 @@ function normalize(rad) {
 }
 
 function movePlayer() {
-  var SPEED = 3,
+  var
+    SPEED = 3,
     playerX = player.x(),
     playerY = player.y(),
+    newX, newY,
     playerDir = player.dir();
 
+  // if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
+  //if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+
   if (UP_KEY) {
-    playerX += Math.cos(playerDir)*SPEED;
-    playerY += Math.sin(playerDir)*SPEED;
+    newX = playerX + Math.cos(playerDir)*SPEED;
+    newY = playerY + Math.sin(playerDir)*SPEED;
+
+    if (!map.get(Math.floor(newX / 64), Math.floor(playerY / 64))) {
+      player.x(newX);
+    }
+
+    if (!map.get(Math.floor(playerX / 64), Math.floor(newY / 64))) {
+      player.y(newY);
+    }
   }
 
   if (DOWN_KEY) {
-    playerX -= Math.cos(playerDir)*SPEED;
-    playerY -= Math.sin(playerDir)*SPEED;
+    newX = playerX - Math.cos(playerDir)*SPEED;
+    newY = playerY - Math.sin(playerDir)*SPEED;
+
+    if (map.get(Math.floor(newX / 64), Math.floor(playerY / 64))) {
+      player.x(newX);
+    }
+
+    if (map.get(Math.floor(playerX / 64), Math.floor(newY / 64))) {
+      player.y(newY);
+    }
   }
 
   if (LEFT_KEY) {
-    playerDir -= 0.1;
+    player.dir(normalize(playerDir - 0.1));
   }
 
   if (RIGHT_KEY) {
-    playerDir += 0.1;
+    player.dir(normalize(playerDir + 0.1));
   }
-
-  playerDir = normalize(playerDir);
-
-  player.x(playerX).y(playerY).dir(playerDir);
 }
