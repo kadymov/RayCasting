@@ -1,7 +1,17 @@
-function GameScr(width, height, textures, wallSize) {
+function GameScr(width, height, textures, wallSize, showFPC) {
   var
-    scr = new Scr(width, height);
+    scr = new Scr(width, height),
+    fpcTime;
 
+  function getFpc() {
+    var
+      now = new Date().getTime(),
+      dt = now - (time || now);
+
+    time = now;
+
+    return Math.floor(1000 / dt);
+  }
 
   return {
     render : function(renderRes) {
@@ -29,6 +39,11 @@ function GameScr(width, height, textures, wallSize) {
 
         shadow = 0.3 + distance / 200;
         scr.rect(i-0.5, 0, 1, height, 'rgba(0, 0, 0, ' + shadow.toFixed(3) + ')');
+      }
+
+      if (showFPC) {
+        var fpc = getFpc();
+        scr.text(fpc, 0, 10, 'white');
       }
     },
 
