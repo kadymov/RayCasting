@@ -1,18 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GEngine</title>
+    <meta charset="utf-8" />
+    <title>GEngine</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: #222;
+            height: 100%;
+        }
+
+        .container {
+            height: 50%;
+            position: relative;
+        }
+
+        .container canvas {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
-  <script src="./map.js"></script>
-  <script src="./res.js"></script>
-  <script src="./scr.js"></script>
-  <script src="./DebugScr.js"></script>
-  <script src="./GameScr.js"></script>
-  <script src="./render.js"></script>
-  <script src="./player.js"></script>
-  <script src="./app.js"></script>
+    <div id="gameContainer" class="container"></div>
+    <div id="debugContainer" class="container"></div>
+
+    <script src="Map.js"></script>
+    <script src="Resource.js"></script>
+    <script src="Screen.js"></script>
+    <script src="./DebugScr.js"></script>
+    <script src="./GameScr.js"></script>
+    <script src="Renderer.js"></script>
+    <script src="Player.js"></script>
+    <script src="./app.js"></script>
 
 </body>
 </html>
