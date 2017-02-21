@@ -1,3 +1,5 @@
+'use strict';
+
 function Renderer(map, player, wallSize, debugScr) {
 
     var mapWidth = map.width() - 1,

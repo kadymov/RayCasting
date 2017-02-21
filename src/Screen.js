@@ -1,3 +1,5 @@
+'use strict';
+
 function Screen(width, height) {
     var canvas = document.createElement('canvas'),
         ctx;
@@ -53,7 +55,7 @@ function Screen(width, height) {
             ctx.strokeStyle = color;
             ctx.lineWidth = lw;
 
-            ctx.beginPath()
+            ctx.beginPath();
             ctx.moveTo(x0, y0);
             ctx.lineTo(x1, y1);
             ctx.stroke();

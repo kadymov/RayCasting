@@ -1,3 +1,5 @@
+'use strict';
+
 function Player(x, y, dir) {
     return {
         x: function (val) {

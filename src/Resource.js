@@ -1,3 +1,5 @@
+'use strict';
+
 function Resource(url, spriteSize, onload) {
     spriteSize = 64;
     onload = onload || function () {};

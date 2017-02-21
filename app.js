@@ -14,7 +14,7 @@
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4
     ]);
 
-    var textures = new Resource('map.png', 64, gameLoop),
+    var textures = new Resource('res/map.png', 64, gameLoop),
         player = new Player(64 * 1.5, 64 * 1.5, 0),
         debugScreen = new DebugScr(320, 320, MAP_DATA, player, 64),
         gameScreen = new GameScr(320, 240, textures, 64, true),
@@ -30,9 +30,8 @@
 
     // requestanimationframe polyfill
     (function() {
-        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-        window.requestAnimationFrame = requestAnimationFrame;
     })();
 
     function gameLoop() {

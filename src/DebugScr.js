@@ -1,3 +1,5 @@
+'use strict';
+
 function DebugScr(width, height, map, player, cellSize) {
     var scr = new Screen(width + 1, height + 1),
         cellWidth = Math.floor(width / map.width()),

@@ -1,3 +1,5 @@
+'use strict';
+
 function Map(width, height) {
     var map = [];
 
@@ -7,7 +9,13 @@ function Map(width, height) {
         }
     }
 
+    if (arguments.length >= 2) {
+        init();
+    }
+
     return {
+        clear: init,
+
         get: function (x, y) {
             if (x >= 0 && x < width && y >= 0 && y < height) {
                 return map[y * width + x];

@@ -1,3 +1,5 @@
+'use strict';
+
 function GameScr(width, height, textures, wallSize, showFPC) {
     var scr = new Screen(width, height),
         fpcTime;
