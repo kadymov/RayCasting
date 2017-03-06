@@ -1,7 +1,7 @@
-(function () {
+(function (RC) {
     'use strict';
 
-    var MAP_DATA = new Map(10, 10).load([
+    var MAP_DATA = new RC.Map(10, 10).load([
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
       4, 0, 0, 0, 0, 0, 0, 0, 0, 4,
       4, 0, 6, 0, 6, 6, 6, 6, 0, 4,
@@ -14,11 +14,11 @@
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4
     ]);
 
-    var textures = new Resource('res/map.png', 64, gameLoop),
-        player = new Player(64 * 1.5, 64 * 1.5, 0),
-        debugScreen = new DebugScr(320, 320, MAP_DATA, player, 64),
-        gameScreen = new GameScr(320, 240, textures, 64, true),
-        renderer = new Renderer(MAP_DATA, player, 64, debugScreen),
+    var textures = new RC.Resource('res/map.png', 64, gameLoop),
+        player = new RC.Player(64 * 1.5, 64 * 1.5, 0),
+        debugScreen = new RC.DebugScr(320, 320, MAP_DATA, player, 64),
+        gameScreen = new RC.GameScr(320, 240, textures, 64, true),
+        renderer = new RC.Renderer(MAP_DATA, player, 64, debugScreen),
         time = 0;
     
     /*************************************************************************/
@@ -98,7 +98,7 @@
     }
 
     function movePlayer(dt) {
-        var SPEED = 0.1 * dt,
+        var SPEED = 0.06 * dt,
             ROT_SPEED = 0.0025 * dt,
             playerX = player.x(),
             playerY = player.y(),
@@ -139,4 +139,9 @@
             player.dir(normalize(playerDir + ROT_SPEED));
         }
     }
-})();
+
+
+    document.querySelector('#fullScrCb').addEventListener('change', function() {
+        document.querySelector('#gameContainer').classList.toggle('full-scr');
+    });
+})(RC);
